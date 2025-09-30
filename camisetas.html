@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camisetas - PLANETA OVERSIZED</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 166, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: #00FFA6;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #00FFA6;
+        }
+
+        /* Content */
+        .content-page {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            color: #00FFA6;
+            margin-bottom: 4rem;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 255, 166, 0.2);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 166, 0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .product-description {
+            color: #aaa;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            color: #00FFA6;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ePayco Button Container */
+        .epayco-button-container {
+            width: 100%;
+        }
+
+        .epayco-button-container form {
+            width: 100%;
+        }
+
+        .epayco-button-container input[type="image"] {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .epayco-button-container input[type="image"]:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 255, 166, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(0, 255, 166, 0.2);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: #00FFA6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #00FFA6;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: rgba(0, 255, 166, 0.2);
+            margin: 2rem 0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.jpg" alt="Logo de OVERSIZED" class="logo-img">
+                PLANETA OVERSIZED
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="camisetas.html">Camisetas</a></li>
+                <li><a href="jeans.html">Jeans</a></li>
+                <li><a href="cupones.html">Cupones</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="content-page">
+        <section class="section-container">
+            <h1 class="section-title">Nuestra Colección de Camisetas</h1>
+            
+            <div class="products-grid" id="productsGrid"></div>
+        </section>
+    </main>
+
+     <footer class="footer">
+        <div class="section-container">
+            <p class="footer-bottom">© 2025 OVERSIZED. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Generar las 102 camisetas con botón de ePayco individual
+        function generateProducts() {
+            const grid = document.getElementById('productsGrid');
+            let html = '';
+            
+            for (let i = 1; i <= 102; i++) {
+                const invoiceId = `CAMOV-${i}-${Date.now()}`;
+                const reference = `CAMOV${i}`;
+                
+                html += `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/CAMISETA(${i}).JPEG" alt="Camiseta Oversize ${i}">
+                    </div>
+                    <div class="product-content">
+                        <h2 class="product-name">Camiseta Oversize Básica</h2>
+                        <p class="product-description">Algodón 100% orgánico, corte relajado y acabados premium.</p>
+                        <p class="product-price">$65.000 COP</p>
+                        
+                        <div class="epayco-button-container">
+                            <form method="POST" action="https://wa.me/3108540887">
+                                <input type="image" src="https://www.kaifatattoo.com/wp-content/uploads/2023/04/boton-whatsapp.png" alt="Pagar con ePayco"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }
+            
+            grid.innerHTML = html;
+        }
+
+        // Generar los productos al cargar la página
+        generateProducts();
+    </script>
+</body>
+</html>

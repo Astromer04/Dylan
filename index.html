@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Marca de ropa oversize premium - Estilo urbano y moderno">
+    <title>PLANETA OVERSIZED | Inicio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 166, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: #00FFA6;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #00FFA6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00FFA6;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00FFA6;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero-index {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #000 0%, #001a0f 50%, #000 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-index::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 166, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 255, 166, 0.15) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #00FFA6 50%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            text-shadow: 0 0 40px rgba(0, 255, 166, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #aaa;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 6rem 2rem;
+            background: #000;
+            position: relative;
+        }
+
+        .video-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00FFA6, transparent);
+        }
+
+        .video-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .video-title {
+            text-align: center;
+            font-size: 3rem;
+            color: #00FFA6;
+            margin-bottom: 3rem;
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(0, 255, 166, 0.5);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding-bottom: 100%; /* 1:1 Aspect Ratio - Video cuadrado */
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 255, 166, 0.3);
+            box-shadow: 0 10px 50px rgba(0, 255, 166, 0.2);
+        }
+
+        .video-wrapper iframe,
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            object-fit: cover;
+        }
+
+        /* Nike Style Grid */
+        .nike-style-grid {
+            padding: 4rem 2rem;
+            background: #000;
+        }
+
+        .grid-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            min-height: 600px;
+        }
+
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            min-height: 600px;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 50px rgba(0, 255, 166, 0.4);
+        }
+
+        .grid-item:nth-child(1) {
+            background: linear-gradient(135deg, rgba(0, 200, 150, 0.3), rgba(0, 80, 60, 0.4)),
+                        url('images/camisetas-bg.jpg') center/cover;
+            border: 2px solid rgba(0, 255, 166, 0.3);
+        }
+
+        .grid-item:nth-child(2) {
+            background: linear-gradient(135deg, rgba(0, 180, 130, 0.3), rgba(0, 60, 40, 0.4)),
+                        url('images/jeans-bg.jpg') center/cover;
+            border: 2px solid rgba(0, 255, 166, 0.3);
+        }
+
+        .item-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 3rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+        }
+
+        .item-content h3 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #00FFA6;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0, 255, 166, 0.6);
+        }
+
+        .item-content p {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .btn-nike {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #00FFA6, #00CC85);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 255, 166, 0.4);
+        }
+
+        .btn-nike:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 255, 166, 0.6);
+            background: linear-gradient(135deg, #00CC85, #00FFA6);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 3rem 0 1.5rem;
+            border-top: 2px solid rgba(0, 255, 166, 0.3);
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: #00FFA6;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .footer-column a:hover {
+            color: #00FFA6;
+            padding-left: 5px;
+        }
+
+        .footer-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00FFA6, transparent);
+            margin: 2rem 0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .video-title {
+                font-size: 2rem;
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                gap: 1rem;
+            }
+
+            .large-item {
+                grid-row: auto;
+                min-height: 400px;
+            }
+
+            .small-item {
+                min-height: 350px;
+            }
+
+            .item-content h3 {
+                font-size: 2.5rem;
+            }
+
+            .item-content p {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation: fadeInUp 1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="logo.jpg" alt="Logo de OVERSIZED" class="logo-img">
+                PLANETA OVERSIZED
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="camisetas.html">Camisetas</a></li>
+                <li><a href="jeans.html">Jeans</a></li>
+                <li><a href="cupones.html">Cupones</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-index">
+            <div class="hero-content animate-on-scroll">
+                <h1 class="hero-title">Ropa urbana premium que define tu estilo</h1>
+                <p class="hero-subtitle">Descubre nuestra colección de ropa oversize, donde el diseño minimalista se encuentra con el confort absoluto.</p>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section class="video-section">
+            <div class="video-container">
+                <h2 class="video-title">🎬 Descubre Nuestra Colección</h2>
+                <div class="video-wrapper">
+                    <video src="videoxd.mp4" controls></video> 
+                    <div class="video-placeholder">
+                        <small style="opacity: 0.6; font-size: 0.9rem;">
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Nike Style Grid -->
+        <section class="nike-style-grid full-width">
+            <div class="grid-container">
+                <div class="grid-item">
+                    <div class="item-content">
+                        <h3>Camisetas Overside</h3>
+                        <p>Tu moda, tu camino.</p>
+                        <a href="camisetas.html" class="btn-nike">Comprar</a>
+                    </div>
+                </div>
+                
+                <div class="grid-item">
+                    <div class="item-content">
+                        <h3>Jeans Oversize</h3>
+                        <p>Corte clásico, estilo moderno.</p>
+                        <a href="jeans.html" class="btn-nike">Comprar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="section-container">
+            <p class="footer-bottom">© 2025 OVERSIZED. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.grid-item, .video-container').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

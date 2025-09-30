@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruleta de Cupones - PLANETA OVERSIZED</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 166, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: #00FFA6;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        /* Content */
+        .content-page {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            min-height: 100vh;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            color: #00FFA6;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px rgba(0, 255, 166, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Password Screen */
+        .password-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+        }
+
+        .password-container {
+            background: rgba(20, 20, 20, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 255, 166, 0.3);
+            box-shadow: 0 0 40px rgba(0, 255, 166, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .password-title {
+            font-size: 2rem;
+            color: #00FFA6;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .password-description {
+            color: #aaa;
+            margin-bottom: 2rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 255, 166, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #00FFA6;
+            box-shadow: 0 0 20px rgba(0, 255, 166, 0.3);
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #00FFA6, #00CC85);
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .password-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 166, 0.5);
+        }
+
+        .password-error {
+            color: #ff4444;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        /* Wheel Container */
+        .wheel-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .wheel-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -40px;
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-top: 50px solid #00FFA6;
+            z-index: 10;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 166, 0.8));
+        }
+
+        .wheel {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            border: 10px solid #00FFA6;
+            position: relative;
+            transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
+            box-shadow: 0 0 40px rgba(0, 255, 166, 0.4),
+                        inset 0 0 30px rgba(0, 255, 166, 0.2);
+        }
+
+        .wheel-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+        }
+
+        .wheel-segment-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #000;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+            transform: rotate(12deg) translateX(60px);
+        }
+
+        .spin-button {
+            padding: 1.5rem 4rem;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #00FFA6, #00CC85);
+            border: none;
+            border-radius: 15px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 255, 166, 0.4);
+        }
+
+        .spin-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 255, 166, 0.6);
+        }
+
+        .spin-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Result Modal */
+        .result-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-content {
+            background: linear-gradient(135deg, rgba(0, 20, 20, 0.95), rgba(0, 40, 30, 0.95));
+            padding: 3rem;
+            border-radius: 20px;
+            border: 3px solid #00FFA6;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0, 255, 166, 0.5);
+            animation: modalAppear 0.5s ease-out;
+        }
+
+        @keyframes modalAppear {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .result-title {
+            font-size: 2.5rem;
+            color: #00FFA6;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(0, 255, 166, 0.8);
+        }
+
+        .result-code {
+            font-size: 3rem;
+            color: #fff;
+            background: rgba(0, 255, 166, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border: 2px solid #00FFA6;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .result-description {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 2rem;
+        }
+
+        .result-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .result-btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-shop {
+            background: linear-gradient(135deg, #00FFA6, #00CC85);
+            color: #000;
+        }
+
+        .btn-again {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid #00FFA6;
+        }
+
+        .result-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 166, 0.5);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(0, 255, 166, 0.2);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: #00FFA6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #00FFA6;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: rgba(0, 255, 166, 0.2);
+            margin: 2rem 0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .wheel {
+                width: 350px;
+                height: 350px;
+            }
+
+            .wheel-segment-text {
+                font-size: 0.7rem;
+                transform: rotate(12deg) translateX(40px);
+            }
+
+            .password-container {
+                padding: 2rem;
+            }
+
+            .result-code {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.jpg" alt="Logo de OVERSIZED" class="logo-img">
+                PLANETA OVERSIZED
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="camisetas.html">Camisetas</a></li>
+                <li><a href="jeans.html">Jeans</a></li>
+                <li><a href="cupones.html">Cupones</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="content-page">
+        <section class="section-container">
+            <h1 class="section-title">🎰 Ruleta de Cupones Exclusivos</h1>
+            
+            <!-- Password Screen -->
+            <div class="password-screen" id="passwordScreen">
+                <div class="password-container">
+                    <div class="password-title">🔐 Acceso VIP Requerido</div>
+                    <p class="password-description">
+                        Esta ruleta es exclusiva para clientes especiales.<br>
+                        Ingresa la contraseña para desbloquear tu oportunidad de ganar cupones increíbles.
+                    </p>
+                    <input 
+                        type="password" 
+                        class="password-input" 
+                        id="passwordInput" 
+                        placeholder="Ingresa la contraseña"
+                        maxlength="20"
+                    >
+                    <button class="password-btn" onclick="checkPassword()">Desbloquear Ruleta</button>
+                    <div class="password-error" id="passwordError">❌ Contraseña incorrecta. Intenta de nuevo.</div>
+                </div>
+            </div>
+
+            <!-- Wheel Screen -->
+            <div class="wheel-container" id="wheelContainer">
+                <p class="subtitle">¡Gira la ruleta y gana cupones de descuento exclusivos!</p>
+                
+                <div class="wheel-wrapper">
+                    <div class="wheel-pointer"></div>
+                    <div class="wheel" id="wheel"></div>
+                </div>
+                
+                <button class="spin-button" id="spinButton" onclick="spinWheel()">
+                    🎯 GIRAR RULETA
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Result Modal -->
+    <div class="result-modal" id="resultModal">
+        <div class="result-content">
+            <div class="result-title" id="resultTitle">🎉 ¡Felicidades!</div>
+            <div class="result-code" id="resultCode">CODIGO123</div>
+            <div class="result-description" id="resultDescription">Has ganado un cupón de descuento</div>
+            <div class="result-buttons">
+                <button class="result-btn btn-shop" onclick="goToShop()">🛍️ Ir a Comprar Ahora</button>
+            </div>
+            <p style="color: #888; margin-top: 1.5rem; font-size: 0.95rem;">
+                💡 Necesitas un nuevo código para volver a jugar
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="section-container">
+            <p class="footer-bottom">© 2025 OVERSIZED. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Contraseñas de acceso válidas (10 códigos únicos)
+        const validPasswords = [
+            "OVERSIZED2025",
+        ];
+
+        // Contraseñas ya usadas (se guardan en memoria)
+        let usedPasswords = [];
+
+        // Configuración de la ruleta (15 segmentos)
+        const wheelSegments = [
+            { type: 'coupon', code: 'SUPER15', description: '15% de descuento en toda la tienda', color: '#FFD700' },
+            { type: 'secret', text: '🎭 Secreto', description: 'Mejor suerte la próxima vez', color: '#444' },
+            { type: 'coupon', code: 'MEGA20', description: '20% de descuento en camisetas', color: '#00FFA6' },
+            { type: 'secret', text: '🎭 Secreto', description: 'Sigue intentando', color: '#444' },
+            { type: 'coupon', code: 'VIP25', description: '25% de descuento exclusivo VIP', color: '#FF6B6B' },
+            { type: 'secret', text: '🎭 Secreto', description: 'Casi lo logras', color: '#444' },
+            { type: 'secret', text: '🎭 Secreto', description: 'No fue tu día', color: '#444' },
+            { type: 'coupon', code: 'PROMO18', description: '18% de descuento especial', color: '#4ECDC4' },
+            { type: 'secret', text: '🎭 Secreto', description: 'Inténtalo de nuevo', color: '#444' },
+            { type: 'secret', text: '🎭 Secreto', description: 'La próxima será', color: '#444' },
+            { type: 'coupon', code: 'BLACK30', description: '30% de descuento BLACK', color: '#9B59B6' },
+            { type: 'secret', text: '🎭 Secreto', description: 'Más suerte la próxima', color: '#444' },
+            { type: 'secret', text: '🎭 Secreto', description: 'Sigue girando', color: '#444' },
+            { type: 'secret', text: '🎭 Secreto', description: 'Casi...', color: '#444' },
+            { type: 'secret', text: '🎭 Secreto', description: 'No esta vez', color: '#444' }
+        ];
+
+        let isSpinning = false;
+
+        // Verificar contraseña
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const error = document.getElementById('passwordError');
+            const enteredPassword = input.value.toUpperCase().trim();
+            
+            // Verificar si la contraseña es válida
+            if (validPasswords.includes(enteredPassword)) {
+                // Verificar si ya fue usada
+                if (usedPasswords.includes(enteredPassword)) {
+                    error.textContent = '❌ Este código ya fue utilizado. Necesitas uno nuevo.';
+                    error.style.display = 'block';
+                    input.value = '';
+                    input.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        input.style.animation = '';
+                    }, 500);
+                } else {
+                    // Código válido y no usado
+                    usedPasswords.push(enteredPassword);
+                    document.getElementById('passwordScreen').style.display = 'none';
+                    document.getElementById('wheelContainer').style.display = 'flex';
+                    createWheel();
+                }
+            } else {
+                error.textContent = '❌ Contraseña incorrecta. Intenta de nuevo.';
+                error.style.display = 'block';
+                input.value = '';
+                input.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 500);
+            }
+        }
+
+        // Permitir Enter en el input
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('passwordInput');
+            if (input) {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+            }
+        });
+
+        // Crear la ruleta
+        function createWheel() {
+            const wheel = document.getElementById('wheel');
+            const segmentAngle = 360 / wheelSegments.length;
+            
+            wheelSegments.forEach((segment, index) => {
+                const segmentDiv = document.createElement('div');
+                segmentDiv.className = 'wheel-segment';
+                segmentDiv.style.transform = `rotate(${segmentAngle * index}deg)`;
+                segmentDiv.style.background = segment.color;
+                
+                const textDiv = document.createElement('div');
+                textDiv.className = 'wheel-segment-text';
+                textDiv.textContent = segment.type === 'coupon' ? segment.code : segment.text;
+                
+                segmentDiv.appendChild(textDiv);
+                wheel.appendChild(segmentDiv);
+            });
+        }
+
+        // Girar la ruleta
+        function spinWheel() {
+            if (isSpinning) return;
+            
+            isSpinning = true;
+            const button = document.getElementById('spinButton');
+            button.disabled = true;
+            button.textContent = '🎯 GIRANDO...';
+            
+            const wheel = document.getElementById('wheel');
+            const randomIndex = Math.floor(Math.random() * wheelSegments.length);
+            const segmentAngle = 360 / wheelSegments.length;
+            
+            // Calcular rotación para que el segmento ganador quede arriba
+            const baseRotation = 360 * 5; // 5 vueltas completas
+            const targetRotation = baseRotation + (360 - (randomIndex * segmentAngle)) - (segmentAngle / 2);
+            
+            wheel.style.transform = `rotate(${targetRotation}deg)`;
+            
+            // Mostrar resultado después de la animación
+            setTimeout(() => {
+                showResult(wheelSegments[randomIndex]);
+                isSpinning = false;
+                button.disabled = false;
+                button.textContent = '🎯 GIRAR RULETA';
+            }, 5000);
+        }
+
+        // Mostrar resultado
+        function showResult(segment) {
+            const modal = document.getElementById('resultModal');
+            const title = document.getElementById('resultTitle');
+            const code = document.getElementById('resultCode');
+            const description = document.getElementById('resultDescription');
+            
+            if (segment.type === 'coupon') {
+                title.textContent = '🎉 ¡FELICIDADES! ¡GANASTE!';
+                code.textContent = segment.code;
+                description.textContent = segment.description;
+                code.style.display = 'block';
+            } else {
+                title.textContent = '😔 ¡Ups! No ganaste esta vez';
+                code.textContent = segment.text;
+                description.textContent = segment.description;
+                code.style.background = 'rgba(100, 100, 100, 0.3)';
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById('resultModal').style.display = 'none';
+            // Regresar a la pantalla de contraseña para requerir nuevo código
+            document.getElementById('wheelContainer').style.display = 'none';
+            document.getElementById('passwordScreen').style.display = 'flex';
+            document.getElementById('passwordInput').value = '';
+            
+            // Resetear la ruleta
+            const wheel = document.getElementById('wheel');
+            wheel.style.transition = 'none';
+            wheel.style.transform = 'rotate(0deg)';
+            setTimeout(() => {
+                wheel.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+            }, 50);
+        }
+
+        // Ir a la tienda
+        function goToShop() {
+            window.location.href = 'camisetas.html';
+        }
+    </script>
+
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</body>
+</html>
