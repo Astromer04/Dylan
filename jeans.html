@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camisetas - PLANETA OVERSIZED</title>
+    <title>Camisetas - PLANETA OVERSIZE</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: #000;
+            background: #ffffff;
             color: #fff;
         }
 
@@ -49,9 +49,10 @@
         }
 
         .logo-img {
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            height: 73px;
             border-radius: 50%;
+            border: 2px solid #336699;
         }
 
         .nav-links {
@@ -86,7 +87,7 @@
         .section-title {
             text-align: center;
             font-size: 3rem;
-            color: #00FFA6;
+            color: #336699;
             margin-bottom: 4rem;
         }
 
@@ -98,16 +99,16 @@
         }
 
         .product-card {
-            background: rgba(20, 20, 20, 0.8);
+            background: #336699;
             border-radius: 15px;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(0, 255, 166, 0.2);
+            border: 1px solid #007dfa;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 255, 166, 0.3);
+            box-shadow: 0 10px 30px #007dfa;;
         }
 
         .product-image {
@@ -139,16 +140,17 @@
         }
 
         .product-description {
-            color: #aaa;
+            color: #d4d4d4;
             margin-bottom: 1rem;
             font-size: 0.9rem;
         }
 
         .product-price {
             font-size: 1.8rem;
-            color: #00FFA6;
+            color: #ffffff;
             font-weight: bold;
             margin-bottom: 1.5rem;
+            text-shadow: 0 0 4px #ffffff;
         }
 
         /* ePayco Button Container */
@@ -287,9 +289,8 @@
                         <h2 class="product-name">Jean Overside</h2>
                         <p class="product-description">Un jean está hecho de denim, con costuras reforzadas, bolsillos y cierre frontal.</p>
                         <p class="product-price">$110.000 COP</p>
-                        
                         <div class="epayco-button-container">
-                        <a href="http://wa.me/+573108540887" target="_blank">
+                        <a href="http://wa.me/573108540887" target="_blank">
                         <img src="https://www.kaifatattoo.com/wp-content/uploads/2023/04/boton-whatsapp.png" 
                         alt="Contactar por WhatsApp" 
                         style="width:200px; height:auto; border:none;"/>
@@ -299,10 +300,8 @@
                 </div>
                 `;
             }
-            
             grid.innerHTML = html;
         }
-
         // Generar los productos al cargar la página
         generateProducts();
     </script>
